@@ -1,8 +1,8 @@
-package ejercicio_5;
+package Ejercicio5;
 
 import java.util.Objects;
 
-class Golosina {
+class Golosina implements Equatable {
     private String nombre;
     private double peso;
 

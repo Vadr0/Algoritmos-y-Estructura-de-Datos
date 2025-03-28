@@ -1,6 +1,6 @@
 package Ejercicio3;
 
-class Golisona {
+class Golosona {
     private String nombre;
     private double peso;
 

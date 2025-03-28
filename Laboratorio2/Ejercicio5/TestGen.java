@@ -1,4 +1,4 @@
-package ejercicio_5;
+package Ejercicio5;
 
 public class TestGen {
     public static <T> boolean exist(T[] array, T elemento) {

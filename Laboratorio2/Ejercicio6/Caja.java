@@ -1,4 +1,4 @@
-package Ejercicio5;
+package Ejercicio6;
 
 class Caja<T> {
     private String color;
