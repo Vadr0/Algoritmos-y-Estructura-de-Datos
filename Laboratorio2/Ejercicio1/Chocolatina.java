@@ -13,9 +13,11 @@ class Chocolatina {
 
     @Override
     public boolean equals(Object obj) {
+        if (obj == null) // Verificamos si obj es null
+            return false;
         if (this == obj)
             return true;
-        if (obj == null || getClass() != obj.getClass())
+        if (getClass() != obj.getClass())
             return false;
         Chocolatina that = (Chocolatina) obj;
         return marca.equals(that.marca);

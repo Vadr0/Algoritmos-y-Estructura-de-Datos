@@ -21,9 +21,11 @@ class Golosina {
 
     @Override
     public boolean equals(Object obj) {
+        if (obj == null) // Verifficamos si obj es null
+            return false;
         if (this == obj)
             return true;
-        if (obj == null || getClass() != obj.getClass())
+        if (getClass() != obj.getClass())
             return false;
         Golosina golosina = (Golosina) obj;
         return Double.compare(golosina.peso, peso) == 0 && nombre.equals(golosina.nombre);
