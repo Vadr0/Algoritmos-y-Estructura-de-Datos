@@ -2,6 +2,40 @@
 ACTIVIDADES
 
 
+a)FUNCION max(x : ENTERO, y : ENTERO) : ENTERO 
+    result : ENTERO; //1
+    SI (x >= y) ENTONCES  //1 
+        result := x;  //1 
+    SINO  //1
+        result := y; //1
+    FINSI 
+    DEVOLVER result;  //1 
+FINFUNCION 
+
+
+b) FUNCION suma (v : VECTOR(ENTERO), tamaño : ENTERO) : ENTERO 
+    i, result : ENTERO;  //1
+    result := 0;  //1
+    PARA i DESDE 0 HASTA tamaño-1 HACER //n-1
+        result := result + v[i];  //1
+    FINPARA 
+    DEVOLVER result; //1
+FINFUNCION 
+
+
+c) PROCEDIMIENTO ordenar(REF v : VECTOR(ENTERO), tamaño : ENTERO) 
+    i, j, aux : ENTERO; //1
+    PARA i DESDE 0 HASTA tamaño-1 HACER  //n-1
+        PARA j DESDE 0 HASTA tamaño-1 HACER //n-1 
+            SI (v[j] > v[j+1]) ENTONCES //1
+                aux := v[j]; //1
+                v[j] := v[j+1]; &&1
+                v[j+1] := aux; //1
+            FINSI  //1
+        FINPARA 
+    FINPARA 
+FINPROCEDIMIENTO 
+
 
 
 
@@ -14,24 +48,134 @@ EJERCICIOS
 1 Ejercicio BM 
 
 FUNCIÓN BM (v : VECTOR(ENTERO), n : ENTERO) : ENTERO 
-    m := v[0] 
-    PARA i DESDE 1 HASTA n-1 HACER 
-        SI v[i] > m ENTONCES 
-            m := v[i] 
+    m := v[0]                // (1 operación)
+    PARA i DESDE 1 HASTA n-1 HACER    // (n-1 iteraciones)
+        SI v[i] > m ENTONCES    // (1 comparación por iteración)
+            m := v[i]           // (1 asignación en el peor caso)
         FINSI 
     FINPARA 
-    DEVOLVER m 
+    DEVOLVER m                  // (1 operación)
 FINFUNCIÓN 
 
 
 
+2. Ejercicio ConteoI 
+ 
+FUNCIÓN ConteoI (v : VECTOR(ENTERO), n : ENTERO) : ENTERO 
+    conteo := 0            // O(1)
+    PARA i DESDE 0 HASTA n-2 HACER         // (n-1) iteraciones
+        PARA j DESDE i+1 HASTA n-1 HACER     // (n-1-i) iteraciones
+            SI v[i] = v[j] ENTONCES      // O(1)
+                conteo := conteo + 1     // O(1)
+            FINSI 
+        FINPARA 
+    FINPARA 
 
 
 
+3. Dado un arreglo, encuentra el número más frecuente usando un diccionario. 
+ 
+public static int moda(int[] v) { 
+    Map<Integer, Integer> frecuencia = new HashMap<>();      // O(1)
+    int maxFrecuencia = 0;      // O(1)
+    int moda = v[0];      // O(1)
+
+    for (int num : v) {  // O(n)
+        int f = frecuencia.getOrDefault(num, 0) + 1;      // O(1)
+        frecuencia.put(num, f);      // O(1)
+        if (f > maxFrecuencia) {      // O(1)
+            maxFrecuencia = f;      // O(1)
+            moda = num;      // O(1)
+        }
+    }
+    return moda;  // O(1)
+}
 
 
 
+4. Dado un arreglo, encuentra el número más frecuente usando un diccionario  
+ 
+FUNCIÓN potenciaRapida(x : ENTERO, y : ENTERO) : ENTERO  
+    SI y = 0 ENTONCES       // O(1)
+        DEVOLVER 1  
+    SINO SI y % 2 = 0 ENTONCES      // O(1)
+        mitad := potenciaRapida(x, y / 2)      // Llamada recursiva
+        DEVOLVER mitad * mitad      // O(1)
+    SINO  
+        DEVOLVER x * potenciaRapida(x, y - 1)  // Llamada recursiva  
+    FINSI  
+FINFUNCIÓN  
 
 
+5. A partir de la siguiente función de recurrencia de un algoritmo, halle el orden de complejidad 
+correspondiente:
+
+
+6.Investigue acerca del algoritmo de ordenación por fusión (Merge Sort) y cómo puede 
+ser utilizado para ordenar un arreglo de enteros. En base a la información obtenida, 
+escriba la implementación en Java de un algoritmo de O(n log n)  que permita 
+ordenar un arreglo de enteros utilizando el algoritmo de ordenación por fusión. Explique 
+utilizando las reglas de la notación asintótica el por qué su orden de complejidad 
+
+
+import java.util.Arrays;
+
+public class MergeSort {
+
+    // Método principal de ordenación
+    public static void mergeSort(int[] arr) {
+        if (arr.length < 2) {
+            return; // Caso base: si el arreglo tiene 1 elemento, ya está ordenado.
+        }
+
+        int mid = arr.length / 2; // Punto medio del arreglo
+
+        // Dividir el arreglo en dos mitades
+        int[] left = Arrays.copyOfRange(arr, 0, mid);
+        int[] right = Arrays.copyOfRange(arr, mid, arr.length);
+
+        // Llamadas recursivas para ordenar las mitades
+        mergeSort(left);
+        mergeSort(right);
+
+        // Combinar las mitades ordenadas
+        merge(arr, left, right);
+    }
+
+    // Método para fusionar dos subarreglos ordenados
+    private static void merge(int[] arr, int[] left, int[] right) {
+        int i = 0, j = 0, k = 0;
+
+        // Compara elementos y fusionarlos en orden
+        while (i < left.length && j < right.length) {
+            if (left[i] <= right[j]) {
+                arr[k++] = left[i++];
+            } else {
+                arr[k++] = right[j++];
+            }
+        }
+
+        // Copia los elementos restantes de la mitad izquierda
+        while (i < left.length) {
+            arr[k++] = left[i++];
+        }
+
+        // Copia los elementos restantes de la mitad derecha
+        while (j < right.length) {
+            arr[k++] = right[j++];
+        }
+    }
+
+    // Método de prueba
+    public static void main(String[] args) {
+        int[] arr = {38, 27, 43, 3, 9, 82, 10};
+        System.out.println("Arreglo original: " + Arrays.toString(arr));
+
+        mergeSort(arr); // Llamar al algoritmo de ordenación
+
+        System.out.println("Arreglo ordenado: " + Arrays.toString(arr));
+    }
+}
+]
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
