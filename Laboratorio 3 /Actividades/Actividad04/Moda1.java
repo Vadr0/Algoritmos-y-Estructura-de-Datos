@@ -1,6 +1,6 @@
 package Actividad04;
 
-public class Moda01 {
+public class Moda1 {
     public static int moda01(int array[]) {
         int first = 0;
         int end = array.length - 1;
