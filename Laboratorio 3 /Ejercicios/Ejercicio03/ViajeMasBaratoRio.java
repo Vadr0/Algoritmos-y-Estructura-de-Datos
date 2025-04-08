@@ -44,18 +44,46 @@ public class ViajeMasBaratoRio {
     }
 
     public static void main(String[] args) {
-        // Ejemplo: matriz triangular superior
-        int[][] T = {
+        // Ejemplo 1: matriz triangular superior (original)
+        int[][] T1 = {
             { 0, 3, 1, 6, Integer.MAX_VALUE },
             { 0, 0, 1, 2, 4 },
             { 0, 0, 0, 1, 2 },
             { 0, 0, 0, 0, 1 },
             { 0, 0, 0, 0, 0 }
         };
-
-        int[][] C = calcularCostosMinimos(T);
-
-        System.out.println("Matriz de costos mínimos:");
-        imprimirMatriz(C);
+    
+        System.out.println("Ejemplo 1:");
+        int[][] C1 = calcularCostosMinimos(T1);
+        imprimirMatriz(C1);
+        System.out.println();
+    
+        // Ejemplo 2: caminos más costosos y más "directos"
+        int[][] T2 = {
+            { 0, 10, 100, Integer.MAX_VALUE, Integer.MAX_VALUE },
+            { 0, 0, 5, 50, Integer.MAX_VALUE },
+            { 0, 0, 0, 2, 20 },
+            { 0, 0, 0, 0, 1 },
+            { 0, 0, 0, 0, 0 }
+        };
+    
+        System.out.println("Ejemplo 2:");
+        int[][] C2 = calcularCostosMinimos(T2);
+        imprimirMatriz(C2);
+        System.out.println();
+    
+        // Ejemplo 3: muchos caminos directos y cortos
+        int[][] T3 = {
+            { 0, 1, 2, 3, 4 },
+            { 0, 0, 1, 1, 1 },
+            { 0, 0, 0, 1, 1 },
+            { 0, 0, 0, 0, 1 },
+            { 0, 0, 0, 0, 0 }
+        };
+    
+        System.out.println("Ejemplo 3:");
+        int[][] C3 = calcularCostosMinimos(T3);
+        imprimirMatriz(C3);
+        System.out.println();
     }
-}
+}    
