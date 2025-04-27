@@ -4,9 +4,10 @@ public class Main {
         
         System.out.println(listaNumeros.isEmptyList());
         System.out.println(listaNumeros.tamanioLista());
+        listaNumeros.imprimirLista();
         Nodo<Integer> nodo1 = new Nodo<>(5);
         System.out.println(listaNumeros.busca(5));
-
+        listaNumeros.imprimirLista();
 
         // prueba con un dato agregado
         listaNumeros.setPrimerNodo(nodo1);
@@ -21,7 +22,12 @@ public class Main {
         System.out.println(listaNumeros.busca(26));
         System.out.println(listaNumeros.busca(82));
         System.out.println(listaNumeros.busca(4));
+        listaNumeros.imprimirLista();
 
-
+        //Prueba de eliminar valores
+        listaNumeros.eliminarNodo(5);
+        listaNumeros.eliminarNodo(89);
+        listaNumeros.imprimirLista();
+        System.out.println(listaNumeros.busca(5));
     }
 }
