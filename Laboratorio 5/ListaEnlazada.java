@@ -54,6 +54,7 @@ public class ListaEnlazada<T> {
     // si no esta vacio, vuelve el primer nodo el siguiente nodo, y el nuevo nodo el primero
     public void agregarAlInicio(T dato){
         Nodo<T> nuevoNodo = new Nodo<>(dato);
+        
         if (primerNodo == null){
             primerNodo = nuevoNodo;
         } else {
@@ -61,5 +62,21 @@ public class ListaEnlazada<T> {
             primerNodo = nuevoNodo;
         }
     }
-    
+
+    // Para agregar al final, sigue una logica similar a a agregar al inicio, si el primer nodo es nulo, el nuevo nodo se vuelve el primero
+    // si no es nulo, entonces iniciamos una busqueda por todos los nodos, hasta que el siguiente nodo sea null, una vez que lo encontremos
+    // hacemos que el siguiente nodo reciba el valor del nuevo nodo
+    public void agregarAlFinal(T dato){
+        Nodo<T> nuevoNodo = new Nodo<>(dato);
+
+        if (primerNodo == null){
+            primerNodo = nuevoNodo;
+        } else {
+            Nodo<T> nodoActual = primerNodo;
+            while (nodoActual.getSiguienteNodo() != null) {
+                nodoActual = nodoActual.getSiguienteNodo();
+            }
+            nodoActual.setSiguienteNodo(nuevoNodo);
+        }
+    }
 }
