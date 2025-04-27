@@ -29,7 +29,9 @@ public class ListaEnlazada<T> {
         }
         return contador;
     }
-
-
     
+    // Para destruir la lista, simplemente volvemos a poner el primer nodo como nulo.
+    public void destruirLista() {
+        primerNodo = null;
+    }
 }
