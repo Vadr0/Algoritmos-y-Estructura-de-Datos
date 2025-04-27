@@ -4,11 +4,15 @@ public class Main {
         
         System.out.println(listaNumeros.isEmptyList());
         System.out.println(listaNumeros.tamanioLista());
-        Nodo<Integer> nodo1 = new Nodo<>(5); 
+        Nodo<Integer> nodo1 = new Nodo<>(5);
+        System.out.println(listaNumeros.busca(5));
+
+
 
         listaNumeros.setPrimerNodo(nodo1);
         System.out.println(listaNumeros.isEmptyList());
         System.out.println(listaNumeros.tamanioLista());
+        System.out.println(listaNumeros.busca(5));
 
 
     }

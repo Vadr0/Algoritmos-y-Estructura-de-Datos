@@ -49,4 +49,17 @@ public class ListaEnlazada<T> {
         }
         return -1;
     }
+
+    //Para añadir al inicio, creamos un nuevo nodo, si el primer nodo esta vacio, entonces el nuevo nodo es el primer nodo
+    // si no esta vacio, vuelve el primer nodo el siguiente nodo, y el nuevo nodo el primero
+    public void agregarAlInicio(T dato){
+        Nodo<T> nuevoNodo = new Nodo<>(dato);
+        if (primerNodo == null){
+            primerNodo = nuevoNodo;
+        } else {
+            nuevoNodo.setSiguienteNodo(primerNodo);
+            primerNodo = nuevoNodo;
+        }
+    }
+    
 }
