@@ -34,4 +34,19 @@ public class ListaEnlazada<T> {
     public void destruirLista() {
         primerNodo = null;
     }
+
+    // Se utilizo la estructura del metodo tamanioLista, añadiendole un condicional, y si no se encuentra el valor, retornaria -1
+    public int busca(T elementoABuscar){
+        int posicion = 0;
+        Nodo<T> nodoActual = primerNodo;
+
+        while(nodoActual != null){
+            if (nodoActual.getDato().equals(elementoABuscar)){
+                return posicion;
+            }
+        nodoActual = nodoActual.getSiguienteNodo();
+        posicion++;
+        }
+        return -1;
+    }
 }
