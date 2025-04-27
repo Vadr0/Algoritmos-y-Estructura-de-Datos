@@ -12,11 +12,9 @@ public class ListaEnlazada<T> {
         return primerNodo;
     }
     
+    // Si el primer nodo es igual a null (es decir la lista esta vacia), retornara true, sino retornara false
     boolean isEmptyList(){
-        if (primerNodo == null){
-            return true;
-        }
-        return false;
+        return primerNodo == null;
     }
     
 }
