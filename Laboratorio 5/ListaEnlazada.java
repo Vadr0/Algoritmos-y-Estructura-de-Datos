@@ -11,7 +11,12 @@ public class ListaEnlazada<T> {
     public Nodo<T> getPrimerNodo() {
         return primerNodo;
     }
-
     
+    boolean isEmptyList(){
+        if (primerNodo == null){
+            return true;
+        }
+        return false;
+    }
     
 }
