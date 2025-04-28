@@ -27,6 +27,43 @@ public class GestorDeTareas<T> {
         listaTareas.imprimirLista();
     }
 
-    
+    public int contarTareas(){
+        int contador = 0;
+        Nodo<T> nodoActual = listaTareas.getPrimerNodo();
+
+        while (nodoActual!=null){
+            contador++;
+            nodoActual = nodoActual.getSiguienteNodo();
+        }
+        return contador;
+    }
+
+    // Para el metodo obtenerTareaMasPrioritaria, hacemos casting, para que la clase como tal es generica, pero necesitamos utilizar
+    // Datos del tipo Tarea, que tengan prioridad
+    public Tarea obtenerTareaMasPrioritaria(){
+        if (listaTareas.isEmptyList()){
+            return null;
+        }
+        
+        Nodo <T> nodoActual = listaTareas.getPrimerNodo();
+        //Casteo
+        Tarea tareaMasPrioritaria = (Tarea) nodoActual.getDato();
+
+        while (nodoActual != null){
+            //Casteo
+            Tarea tareaActual = (Tarea) nodoActual.getDato();
+            if (tareaActual.getPrioridad() > tareaMasPrioritaria.getPrioridad()){
+                tareaMasPrioritaria = tareaActual;
+            }
+            nodoActual = nodoActual.getSiguienteNodo();
+        }
+        return tareaMasPrioritaria;
+    }
+
+
+
+
+
+
 
 }
