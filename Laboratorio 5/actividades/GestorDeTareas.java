@@ -14,9 +14,11 @@ public class GestorDeTareas<T> {
 
     boolean eliminarTarea(T tarea) {
         if (listaTareas.busca(tarea)) {
+            System.out.println("Eliminando la tarea: " + tarea);
             listaTareas.eliminarNodo(tarea);
             return true;
         }
+        System.out.println("La tarea no existe.");
         return false;
     }
 
