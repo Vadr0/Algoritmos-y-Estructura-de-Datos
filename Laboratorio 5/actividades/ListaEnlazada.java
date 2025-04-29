@@ -15,15 +15,12 @@ public class ListaEnlazada<T> {
         return primerNodo;
     }
 
-    // Si el primer nodo es igual a null (es decir la lista esta vacia), retornara
-    // true, sino retornara false
+    // Verificar si una lista esta vacia, viendo el valor de primer nodo
     public boolean isEmptyList() {
         return primerNodo == null;
     }
 
-    // Se inicia un contador, y un nodoActual, que equivale al primer nodo
-    // Mientras que el valor del nodoActual no sea null, se seguira recorriendo la
-    // lista, cambiando el nodoActual por el siguiente nodo.
+    // Mientras nodoActual no sea null, se seguira recorriendo la lista, aumentando el contador para el tamaño
     public int tamanioLista() {
         int contador = 0;
         Nodo<T> nodoActual = primerNodo;
@@ -35,14 +32,12 @@ public class ListaEnlazada<T> {
         return contador;
     }
 
-    // Para destruir la lista, simplemente volvemos a poner el primer nodo como
-    // nulo.
+    // Si el primer nodo es null, entonces se destruye la lista
     public void destruirLista() {
         primerNodo = null;
     }
 
-    // Se utilizo la estructura del metodo tamanioLista, añadiendole un condicional,
-    // y si no se encuentra el valor, retornaria -1
+    // Se utilizo la estructura del metodo tamanioLista, añadiendole un condicional
     public boolean busca(T elementoABuscar) {
         Nodo<T> nodoActual = primerNodo;
 
@@ -55,10 +50,7 @@ public class ListaEnlazada<T> {
         return false;
     }
 
-    // Para añadir al inicio, creamos un nuevo nodo, si el primer nodo esta vacio,
-    // entonces el nuevo nodo es el primer nodo
-    // si no esta vacio, vuelve el primer nodo el siguiente nodo, y el nuevo nodo el
-    // primero
+    // Creamos un nodo. Si la lista está vacía, se vuelve el primero. Si no, lo insertamos antes del actual primero.
     public void agregarAlInicio(T dato) {
         Nodo<T> nuevoNodo = new Nodo<>(dato);
 
@@ -70,11 +62,7 @@ public class ListaEnlazada<T> {
         }
     }
 
-    // Para agregar al final, sigue una logica similar a a agregar al inicio, si el
-    // primer nodo es nulo, el nuevo nodo se vuelve el primero
-    // si no es nulo, entonces iniciamos una busqueda por todos los nodos, hasta que
-    // el siguiente nodo sea null, una vez que lo encontremos
-    // hacemos que el siguiente nodo reciba el valor del nuevo nodo
+    // Creamos un nodo. Si la lista está vacía, se vuelve el primero. Si no, lo añadimos al final recorriendo hasta el último nodo.
     public void agregarAlFinal(T dato) {
         Nodo<T> nuevoNodo = new Nodo<>(dato);
 
@@ -89,11 +77,7 @@ public class ListaEnlazada<T> {
         }
     }
 
-    // Para eliminar un elemento, primero comprobamos, si la lista esta vacia
-    // Si el elemento que buscamos es parte del primer nodo, entonces simplemente volvemos al siguiente nodo como el primer nodo
-    // Si no es ninguna de esas opciones, iteramos la lista, mientras que no sea el ultimo elemento en ella
-        // si el valor del siguiente nodo, al nodo actual, es el valor que buscamos
-        // entonces, el siguiente nodo, se convierte en el siguiente del siguiente
+    // Elimina el nodo con el dato dado. Si es el primero, lo reemplaza. Si no, recorre y salta el nodo coincidente.
     public void eliminarNodo(T dato) {
         if (primerNodo == null) {
             System.out.println("Lista vacia.");
@@ -116,8 +100,7 @@ public class ListaEnlazada<T> {
         System.out.println("No se encontro el elemento");
     }
 
-    // Metodo Adicional, imprimimos la lista, primero verificamos que la lista no este vacia, luego usamos un metodo similar a la busqueda 
-    // o a la eliminacion, solo que esta vez imprimimos los valores junto a una flecha, y si no hay siguiente elemento un null
+    // Metodo Adicional, imprimimos la lista, usando un metodo similar a la busquedasolo que esta vez imprimimos los valores.
     public void imprimirLista() {
         if (primerNodo == null) {
             System.out.println("La lista está vacía.");

@@ -61,10 +61,6 @@ public class MainTareas {
 
         System.out.println("\nTareas completadas:");
         tareasCompletadas.imprimirTareas();
-
-
-        
-
     }
     
 }

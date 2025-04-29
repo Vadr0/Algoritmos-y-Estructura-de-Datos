@@ -30,16 +30,8 @@ public class GestorDeTareas<T> {
         listaTareas.imprimirLista();
     }
 
-    // El metodo para contar tareas, sigue la logica de la busqueda de la lista enlazada, pero el enfoque cambia
     public int contarTareas(){
-        int contador = 0;
-        Nodo<T> nodoActual = listaTareas.getPrimerNodo();
-
-        while (nodoActual!=null){
-            contador++;
-            nodoActual = nodoActual.getSiguienteNodo();
-        }
-        return contador;
+        return listaTareas.tamanioLista();
     }
 
     // Para el metodo obtenerTareaMasPrioritaria, hacemos casting, para que la clase como tal es generica, pero necesitamos utilizar
