@@ -1,41 +1,29 @@
 package ejercicios;
 
 public class Ejerc03 {
-
-    // Método estático y generico, inserta al final de una lista enlazada dado el PrimerNodo
-    public static <T> Nodo<T> insertarAlFinal(Nodo<T> primerNodo, T dato) {
+    public static <T> void insertarAlFinal(ListaEnlazada<T> lista, T dato) {
         Nodo<T> nuevoNodo = new Nodo<>(dato);
 
-        if (primerNodo == null) {
-            return nuevoNodo; // lista vacía = nuevo primerNodo
+        if (lista.getPrimerNodo() == null) {
+            lista.setPrimerNodo(nuevoNodo);
         } else {
-            Nodo<T> nodoActual = primerNodo;
+            Nodo<T> nodoActual = lista.getPrimerNodo();
             while (nodoActual.getSiguienteNodo() != null) {
                 nodoActual = nodoActual.getSiguienteNodo();
             }
             nodoActual.setSiguienteNodo(nuevoNodo);
-            return primerNodo; // se mantiene el mismo primerNodo
         }
-    }
-
-    // imprimir la lista desde un nodo
-    public static <T> void imprimirLista(Nodo<T> primerNodo) {
-        Nodo<T> actual = primerNodo;
-        while (actual != null) {
-            System.out.print(actual.getDato() + " -> ");
-            actual = actual.getSiguienteNodo();
-        }
-        System.out.println("null");
     }
 
     public static void main(String[] args) {
-        Nodo<String> primerNodo = null;
+        ListaEnlazada<String> lista = new ListaEnlazada<>();
 
-        // Insertar nodos
-        primerNodo = insertarAlFinal(primerNodo, "A");
-        primerNodo = insertarAlFinal(primerNodo, "B");
-        primerNodo = insertarAlFinal(primerNodo, "C");
+        insertarAlFinal(lista, "A");
+        insertarAlFinal(lista, "B");
+        insertarAlFinal(lista, "C");
+        insertarAlFinal(lista, "D");
+        insertarAlFinal(lista, "E");
 
-        imprimirLista(primerNodo);
+        lista.imprimirLista();
     }
 }
