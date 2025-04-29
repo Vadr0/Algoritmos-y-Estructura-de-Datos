@@ -3,10 +3,12 @@ package actividades;
 public class ListaEnlazada<T> {
     private Nodo<T> primerNodo;
 
+    //Constructor
     public ListaEnlazada() {
         primerNodo = null;
     }
 
+    //Getters y Setters
     public void setPrimerNodo(Nodo<T> primerNodo) {
         this.primerNodo = primerNodo;
     }
