@@ -18,7 +18,7 @@ public class GestorDeTareas<T> {
             listaTareas.eliminarNodo(tarea);
             return true;
         }
-        System.out.println("La tarea no existe.");
+        System.out.println("La tarea " + tarea + " no existe.");
         return false;
     }
 

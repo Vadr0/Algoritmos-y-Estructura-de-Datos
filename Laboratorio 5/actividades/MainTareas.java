@@ -6,8 +6,9 @@ public class MainTareas {
         GestorDeTareas<Tarea> gestorTareas = new GestorDeTareas<>();
         
         System.out.println("*********************************************************************************");
-        System.out.println("Agregar Tareas:");
+
         // 2. Agregar tareas
+        System.out.println("Agregar Tareas:");
         gestorTareas.agregarTarea(new Tarea("Terminar lab de AED", 3, "Terminar el laboratorio 05 de AED, antes del 30"));
         gestorTareas.agregarTarea(new Tarea("Estudiar para el parcial", 5, "Estudiar para el examen de recuperacion"));
         gestorTareas.agregarTarea(new Tarea("Enviar correo a grupo", 2, "Enviar Correo respecto al trabajo final de Redes II"));
@@ -15,15 +16,24 @@ public class MainTareas {
         gestorTareas.agregarTarea(new Tarea("Preparar exposicion de segunda fase", 1, "Terminar el PPT y coordinar"));
 
         System.out.println("*********************************************************************************");
-        System.out.println("Mostrar la Lista de tareas:");
-        // 2.1 Mostrar Tareas
         gestorTareas.imprimirTareas();
+        System.out.println("*********************************************************************************");
+
+        // 3. Eliminar alguna tarea
+        System.out.println("Eliminar alguna tarea:");
+        Tarea tareaAEliminar = new Tarea("Enviar correo a grupo", 2, "Enviar Correo respecto al trabajo final de Redes II");
+        Tarea tareaInexistente = new Tarea("Cambiar este valor, solo prueba", 0, "Este valor es una prueba");
+        gestorTareas.eliminarTarea(tareaAEliminar);
+        gestorTareas.eliminarTarea(tareaInexistente);
 
         System.out.println("*********************************************************************************");
-        System.out.println("Eliminar alguna tarea:");
-        // 3. Eliminar alguna tarea
-        Tarea tareaAEliminar = new Tarea("Enviar correo a grupo", 2, "Enviar Correo respecto al trabajo final de Redes II");
-        gestorTareas.eliminarTarea(tareaAEliminar);
+        //4. Imprimir todas las tareas actuales.
+        gestorTareas.imprimirTareas();
+        System.out.println("*********************************************************************************");
+
+        //5. Verificar si cierta tarea existe
+        
+
 
         
 
