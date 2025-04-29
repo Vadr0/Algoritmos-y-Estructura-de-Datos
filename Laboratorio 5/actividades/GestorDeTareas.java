@@ -3,15 +3,18 @@ package actividades;
 public class GestorDeTareas<T> {
     private ListaEnlazada<T> listaTareas;
 
+    //Constructor
     public GestorDeTareas() {
         listaTareas = new ListaEnlazada<>();
     }
 
+    //Agregar Tareas
     public void agregarTarea(T tarea) {
         System.out.println("Tarea: " + tarea + " agregada exitosamente.");
         listaTareas.agregarAlFinal(tarea);
     }
 
+    //Eliminar Tareas
     boolean eliminarTarea(T tarea) {
         if (listaTareas.busca(tarea)) {
             System.out.println("Eliminando la tarea: " + tarea);
@@ -22,14 +25,17 @@ public class GestorDeTareas<T> {
         return false;
     }
 
+    //Buscar Tareas
     boolean contieneTarea(T tarea) {
         return listaTareas.busca(tarea);
     }
 
+    //Imprimir Tareas
     void imprimirTareas(){
         listaTareas.imprimirLista();
     }
 
+    //Ver el tamaño de la lista de tareas
     public int contarTareas(){
         return listaTareas.tamanioLista();
     }
@@ -42,11 +48,11 @@ public class GestorDeTareas<T> {
         }
         
         Nodo <T> nodoActual = listaTareas.getPrimerNodo();
-        //Casteo
+        //Casteo y ponemos el primer dato, como la mas prioritaria
         Tarea tareaMasPrioritaria = (Tarea) nodoActual.getDato();
 
         while (nodoActual != null){
-            //Casteo
+            //Casteo y comparamos si la tarea actual tiene mayor prioridad que la guardada
             Tarea tareaActual = (Tarea) nodoActual.getDato();
             if (tareaActual.getPrioridad() > tareaMasPrioritaria.getPrioridad()){
                 tareaMasPrioritaria = tareaActual;
@@ -56,6 +62,7 @@ public class GestorDeTareas<T> {
         return tareaMasPrioritaria;
     }
 
+    // Método para invertir el orden de la lista enlazada de tareas
     public void invertirListaTareas(){
         Nodo<T> anteriorNodo = null;
         Nodo<T> actualNodo = listaTareas.getPrimerNodo();
@@ -69,9 +76,26 @@ public class GestorDeTareas<T> {
         }
         listaTareas.setPrimerNodo(anteriorNodo);
     }
-
-
-
-
-
 }
+
+/*
+public Tarea obtenerTareaMasPrioritaria() {
+    if (listaTareas.isEmptyList()) {
+        return null;
+    }
+
+    Nodo<Tarea> nodoActual = listaTareas.getPrimerNodo();
+    Tarea tareaMasPrioritaria = nodoActual.getDato();
+    nodoActual = nodoActual.getSiguienteNodo();
+
+    while (nodoActual != null) {
+        Tarea tareaActual = nodoActual.getDato();
+        if (tareaActual.getPrioridad() > tareaMasPrioritaria.getPrioridad()) {
+            tareaMasPrioritaria = tareaActual;
+        }
+        nodoActual = nodoActual.getSiguienteNodo();
+    }
+
+    return tareaMasPrioritaria;
+}
+*/
