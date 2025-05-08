@@ -1,3 +1,15 @@
+class Nodo<T>{
+    T dato;
+    Nodo<T> siguienteNodo;
+
+    //Constructor
+    public Nodo(T dato){
+        this.dato = dato;
+        this.siguienteNodo = null;
+    }
+}
+
+
 public class ListaEnlazada<T> {
     private Nodo<T> primerNodo;
 
@@ -28,7 +40,7 @@ public class ListaEnlazada<T> {
 
         while (nodoActual != null) {
             contador++;
-            nodoActual = nodoActual.getSiguienteNodo();
+            nodoActual = nodoActual.siguienteNodo;
         }
         return contador;
     }
@@ -46,10 +58,10 @@ public class ListaEnlazada<T> {
         Nodo<T> nodoActual = primerNodo;
 
         while (nodoActual != null) {
-            if (nodoActual.getDato().equals(elementoABuscar)) {
+            if (nodoActual.dato.equals(elementoABuscar)) {
                 return posicion;
             }
-            nodoActual = nodoActual.getSiguienteNodo();
+            nodoActual = nodoActual.siguienteNodo;
             posicion++;
         }
         return -1;
@@ -65,7 +77,7 @@ public class ListaEnlazada<T> {
         if (primerNodo == null) {
             primerNodo = nuevoNodo;
         } else {
-            nuevoNodo.setSiguienteNodo(primerNodo);
+            nuevoNodo.siguienteNodo = nuevoNodo;
             primerNodo = nuevoNodo;
         }
     }
@@ -82,10 +94,10 @@ public class ListaEnlazada<T> {
             primerNodo = nuevoNodo;
         } else {
             Nodo<T> nodoActual = primerNodo;
-            while (nodoActual.getSiguienteNodo() != null) {
-                nodoActual = nodoActual.getSiguienteNodo();
+            while (nodoActual.siguienteNodo != null) {
+                nodoActual = nodoActual.siguienteNodo;
             }
-            nodoActual.setSiguienteNodo(nuevoNodo);
+            nodoActual.siguienteNodo = nuevoNodo;
         }
     }
 
@@ -100,18 +112,18 @@ public class ListaEnlazada<T> {
             return;
         }
 
-        if (primerNodo.getDato().equals(dato)) {
-            primerNodo = primerNodo.getSiguienteNodo();
+        if (primerNodo.dato.equals(dato)) {
+            primerNodo = primerNodo.siguienteNodo;
             return;
         }
 
         Nodo<T> nodoActual = primerNodo;
-        while (nodoActual.getSiguienteNodo() != null) {
-            if (nodoActual.getSiguienteNodo().getDato().equals(dato)) {
-                nodoActual.setSiguienteNodo(nodoActual.getSiguienteNodo().getSiguienteNodo());
+        while (nodoActual.siguienteNodo != null) {
+            if (nodoActual.siguienteNodo.dato.equals(dato)) {
+                nodoActual.siguienteNodo = nodoActual.siguienteNodo.siguienteNodo;
                 return;
             }
-            nodoActual = nodoActual.getSiguienteNodo();
+            nodoActual = nodoActual.siguienteNodo;
         }
         System.out.println("No se encontro el elemento");
     }
@@ -126,8 +138,8 @@ public class ListaEnlazada<T> {
 
         Nodo<T> nodoActual = primerNodo;
         while (nodoActual != null) {
-            System.out.print(nodoActual.getDato() + " -> ");
-            nodoActual = nodoActual.getSiguienteNodo();
+            System.out.print(nodoActual.dato + " -> ");
+            nodoActual = nodoActual.siguienteNodo;
         }
         System.out.println("null");
     }
