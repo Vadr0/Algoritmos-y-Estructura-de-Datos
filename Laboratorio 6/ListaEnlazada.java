@@ -9,7 +9,6 @@ class Nodo<T>{
     }
 }
 
-
 public class ListaEnlazada<T> {
     private Nodo<T> primerNodo;
 
@@ -77,7 +76,7 @@ public class ListaEnlazada<T> {
         if (primerNodo == null) {
             primerNodo = nuevoNodo;
         } else {
-            nuevoNodo.siguienteNodo = nuevoNodo;
+            nuevoNodo.siguienteNodo = primerNodo;
             primerNodo = nuevoNodo;
         }
     }
