@@ -39,14 +39,16 @@ public class StackArray<E> implements Stack<E> {
         return this.tope == array.length - 1;
     }
 
+    @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
+        String result = "[";
         for (int i = tope; i >= 0; i--) {
-            sb.append(array[i]);
-            if (i != 0) sb.append(", ");
+            result += array[i];
+            if (i != 0)
+                result += ", ";
         }
-        sb.append("]");
-        return sb.toString();
+        result += "]";
+        return result;
     }
+
 }
