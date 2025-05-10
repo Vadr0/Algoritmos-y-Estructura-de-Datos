@@ -1,17 +1,5 @@
 package estructuras;
 
-
-class Node<T>{
-    T data;
-    Node<T> nextNode;
-
-    //Constructor
-    public Node(T dato){
-        this.data = dato;
-        this.nextNode = null;
-    }
-}
-
 public class LinkedList<T> {
     private Node<T> firstNode;
 
