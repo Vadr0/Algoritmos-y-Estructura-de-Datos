@@ -1,4 +1,5 @@
 package actividad1;
+import exceptions.ExceptionIsEmpty;
 
 public class StackArray<E> implements Stack<E> {
     private E[] array;

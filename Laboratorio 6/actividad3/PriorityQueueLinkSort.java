@@ -1,4 +1,5 @@
 package actividad3;
+import exceptions.ExceptionIsEmpty;
 
 public class PriorityQueueLinkSort<E, N extends Comparable<N>> implements PriorityQueue<E, N> {
 

@@ -1,6 +1,6 @@
 package ejercicio2;
 
-import estructuras.ExceptionIsEmpty;
+import exceptions.ExceptionIsEmpty;
 
 public interface Queue<E> {
     void enqueue(E x);

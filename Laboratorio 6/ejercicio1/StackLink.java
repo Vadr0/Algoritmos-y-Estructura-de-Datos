@@ -1,7 +1,7 @@
 package ejercicio1;
 
-import estructuras.ExceptionIsEmpty;
 import estructuras.LinkedList;
+import exceptions.ExceptionIsEmpty;
 
 public class StackLink<E> implements Stack<E> {
     private final LinkedList<E> list;

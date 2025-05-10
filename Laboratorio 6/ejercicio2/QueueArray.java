@@ -1,6 +1,6 @@
 package ejercicio2;
 
-import estructuras.ExceptionIsEmpty;
+import exceptions.ExceptionIsEmpty;
 
 public class QueueArray<E> implements Queue<E> {
     private E[] data;

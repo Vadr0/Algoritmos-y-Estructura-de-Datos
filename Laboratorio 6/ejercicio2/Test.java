@@ -1,6 +1,6 @@
 package ejercicio2;
 
-import estructuras.ExceptionIsEmpty;
+import exceptions.ExceptionIsEmpty;
 
 public class Test {
     public static void main(String[] args) throws ExceptionIsEmpty {

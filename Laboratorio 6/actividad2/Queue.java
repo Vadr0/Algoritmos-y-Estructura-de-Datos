@@ -1,4 +1,5 @@
 package actividad2;
+import exceptions.ExceptionIsEmpty;
 
 public interface Queue<E> {
     void enqueue(E x);

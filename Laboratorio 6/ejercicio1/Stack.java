@@ -1,6 +1,6 @@
 package ejercicio1;
 
-import estructuras.ExceptionIsEmpty;
+import exceptions.ExceptionIsEmpty;
 
 public interface Stack<E> {
     void push(E x);

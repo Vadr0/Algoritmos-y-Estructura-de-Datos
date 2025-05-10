@@ -1,5 +1,5 @@
 package ejercicio1;
-import estructuras.ExceptionIsEmpty;
+import exceptions.ExceptionIsEmpty;
 
 
 public class Test {
