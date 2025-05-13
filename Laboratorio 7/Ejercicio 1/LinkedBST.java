@@ -204,8 +204,46 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
     }
 
     public String amplitude(int nivel) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'amplitude'");
+    if (nivel < 0) {
+        return ""; // Nivel inválido
     }
+    
+    StringBuilder sb = new StringBuilder();
+    Queue<Node<E>> queue = new LinkedQueue<>();
+    
+    if (root != null) {
+        queue.enqueue(root);
+    }
+    
+    int currentLevel = 0;
+    boolean levelFound = false;
+    
+    while (!queue.isEmpty() && !levelFound) {
+        int nodesInCurrentLevel = queue.size();
+        
+        if (currentLevel == nivel) {
+            levelFound = true;
+            // Agregar todos los nodos de este nivel al resultado
+            for (int i = 0; i < nodesInCurrentLevel; i++) {
+                Node<E> node = queue.dequeue();
+                sb.append(node.data).append(" ");
+            }
+        } else {
+            // Procesar el siguiente nivel
+            for (int i = 0; i < nodesInCurrentLevel; i++) {
+                Node<E> node = queue.dequeue();
+                if (node.left != null) {
+                    queue.enqueue(node.left);
+                }
+                if (node.right != null) {
+                    queue.enqueue(node.right);
+                }
+            }
+            currentLevel++;
+        }
+    }
+    
+    return sb.toString().trim();
+}
 }
 
