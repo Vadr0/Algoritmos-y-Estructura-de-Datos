@@ -203,7 +203,7 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         return height;
     }
 
-    public String amplitude(int nivel) {
+   public String amplitude(int nivel) {
     if (nivel < 0) {
         return ""; // Nivel inválido
     }
@@ -244,6 +244,7 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
     }
     
     return sb.toString().trim();
+}
 }
 }
 
