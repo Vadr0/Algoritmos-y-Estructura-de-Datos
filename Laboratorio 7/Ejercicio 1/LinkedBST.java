@@ -203,23 +203,6 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         return height;
     }
 
-    // Método auxiliar para contar elementos en tu LinkedQueue (no tiene size() como
-    // la de Java)
-    private int getQueueSize(Queue<Node<E>> queue) {
-        LinkedQueue<Node<E>> tempQueue = (LinkedQueue<Node<E>>) queue;
-        int count = 0;
-        Queue<Node<E>> aux = new LinkedQueue<>();
-        while (!tempQueue.isEmpty()) {
-            Node<E> node = tempQueue.dequeue();
-            aux.enqueue(node);
-            count++;
-        }
-        while (!aux.isEmpty()) {
-            tempQueue.enqueue(aux.dequeue());
-        }
-        return count;
-    }
-
     public String amplitude(int nivel) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'amplitude'");
