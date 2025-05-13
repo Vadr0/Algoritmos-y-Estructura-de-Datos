@@ -1,12 +1,10 @@
-package bstreelinklistinterfgeneric;
-
 import bstreeInterface.BinarySearchTree;
 import exceptions.ExceptionIsEmpty;
 import exceptions.ItemDuplicated;
 import exceptions.ItemNotFound;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import estructuras.LinkedQueue;
+import estructuras.Queue;
 
 public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
     private Node<E> root;
@@ -38,11 +36,15 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
     }
 
     private Node<E> insert(Node<E> node, E data) {
-        if (node == null) return new Node<>(data);
+        if (node == null)
+            return new Node<>(data);
         int cmp = data.compareTo(node.data);
-        if (cmp < 0) node.left = insert(node.left, data);
-        else if (cmp > 0) node.right = insert(node.right, data);
-        else throw new ItemDuplicated("Dato duplicado: " + data);
+        if (cmp < 0)
+            node.left = insert(node.left, data);
+        else if (cmp > 0)
+            node.right = insert(node.right, data);
+        else
+            throw new ItemDuplicated("Dato duplicado: " + data);
         return node;
     }
 
@@ -52,27 +54,37 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
     }
 
     private boolean search(Node<E> node, E data) {
-        if (node == null) throw new ItemNotFound("Dato no encontrado: " + data);
+        if (node == null)
+            throw new ItemNotFound("Dato no encontrado: " + data);
         int cmp = data.compareTo(node.data);
-        if (cmp < 0) return search(node.left, data);
-        else if (cmp > 0) return search(node.right, data);
-        else return true;
+        if (cmp < 0)
+            return search(node.left, data);
+        else if (cmp > 0)
+            return search(node.right, data);
+        else
+            return true;
     }
 
     @Override
     public void delete(E data) {
-        if (isEmpty()) throw new ExceptionIsEmpty("El árbol está vacío.");
+        if (isEmpty())
+            throw new ExceptionIsEmpty("El árbol está vacío.");
         root = delete(root, data);
     }
 
     private Node<E> delete(Node<E> node, E data) {
-        if (node == null) throw new ItemNotFound("Dato no encontrado: " + data);
+        if (node == null)
+            throw new ItemNotFound("Dato no encontrado: " + data);
         int cmp = data.compareTo(node.data);
-        if (cmp < 0) node.left = delete(node.left, data);
-        else if (cmp > 0) node.right = delete(node.right, data);
+        if (cmp < 0)
+            node.left = delete(node.left, data);
+        else if (cmp > 0)
+            node.right = delete(node.right, data);
         else {
-            if (node.left == null) return node.right;
-            if (node.right == null) return node.left;
+            if (node.left == null)
+                return node.right;
+            if (node.right == null)
+                return node.left;
             Node<E> successor = findMin(node.right);
             node.data = successor.data;
             node.right = delete(node.right, successor.data);
@@ -81,7 +93,8 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
     }
 
     private Node<E> findMin(Node<E> node) {
-        while (node.left != null) node = node.left;
+        while (node.left != null)
+            node = node.left;
         return node;
     }
 
@@ -138,7 +151,8 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
     }
 
     private int countAllNodes(Node<E> node) {
-        if (node == null) return 0;
+        if (node == null)
+            return 0;
         return 1 + countAllNodes(node.left) + countAllNodes(node.right);
     }
 
@@ -148,7 +162,8 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
     }
 
     private int countNodes(Node<E> node) {
-        if (node == null || (node.left == null && node.right == null)) return 0;
+        if (node == null || (node.left == null && node.right == null))
+            return 0;
         return 1 + countNodes(node.left) + countNodes(node.right);
     }
 
@@ -157,51 +172,57 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         Node<E> node = root;
         while (node != null) {
             int cmp = x.compareTo(node.data);
-            if (cmp < 0) node = node.left;
-            else if (cmp > 0) node = node.right;
-            else return heightIterative(node);
+            if (cmp < 0)
+                node = node.left;
+            else if (cmp > 0)
+                node = node.right;
+            else
+                return heightIterative(node);
         }
         return -1; // No encontrado
     }
 
     private int heightIterative(Node<E> node) {
-        if (node == null) return -1;
-        Queue<Node<E>> queue = new LinkedList<>();
-        queue.add(node);
+        if (node == null)
+            return -1;
+        Queue<Node<E>> queue = new LinkedQueue<>();
+        queue.enqueue(node);
         int height = -1;
 
         while (!queue.isEmpty()) {
-            int size = queue.size();
+            int size = getQueueSize(queue);
             height++;
             for (int i = 0; i < size; i++) {
-                Node<E> current = queue.poll();
-                if (current.left != null) queue.add(current.left);
-                if (current.right != null) queue.add(current.right);
+                Node<E> current = queue.dequeue();
+                if (current.left != null)
+                    queue.enqueue(current.left);
+                if (current.right != null)
+                    queue.enqueue(current.right);
             }
         }
         return height;
     }
 
-    // d. Amplitud (anchura) en un nivel específico
-    public int amplitude(int level) {
-        if (root == null || level < 0) return 0;
-
-        Queue<Node<E>> queue = new LinkedList<>();
-        queue.add(root);
-        int currentLevel = 0;
-
-        while (!queue.isEmpty()) {
-            int size = queue.size();
-            if (currentLevel == level) return size;
-
-            for (int i = 0; i < size; i++) {
-                Node<E> node = queue.poll();
-                if (node.left != null) queue.add(node.left);
-                if (node.right != null) queue.add(node.right);
-            }
-            currentLevel++;
+    // Método auxiliar para contar elementos en tu LinkedQueue (no tiene size() como
+    // la de Java)
+    private int getQueueSize(Queue<Node<E>> queue) {
+        LinkedQueue<Node<E>> tempQueue = (LinkedQueue<Node<E>>) queue;
+        int count = 0;
+        Queue<Node<E>> aux = new LinkedQueue<>();
+        while (!tempQueue.isEmpty()) {
+            Node<E> node = tempQueue.dequeue();
+            aux.enqueue(node);
+            count++;
         }
+        while (!aux.isEmpty()) {
+            tempQueue.enqueue(aux.dequeue());
+        }
+        return count;
+    }
 
-        return 0; // Nivel fuera del rango del árbol
+    public String amplitude(int nivel) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'amplitude'");
     }
 }
+
