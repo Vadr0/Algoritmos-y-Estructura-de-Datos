@@ -1,95 +1,50 @@
-import bstreeInterface.BinarySearchTree;
+import estructuras.LinkedQueue;
+import estructuras.Queue;
+
+import javax.swing.*;
+
 import exceptions.ExceptionIsEmpty;
 import exceptions.ItemDuplicated;
 import exceptions.ItemNotFound;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
-public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
+public class LinkedBST<E extends Comparable<E>> {
     private Node<E> root;
+
+    private static class Node<E> {
+        E data;
+        Node<E> left, right;
+
+        public Node(E data) {
+            this.data = data;
+            this.left = this.right = null;
+        }
+    }
+
+    // Constructor
 
     public LinkedBST() {
         this.root = null;
     }
 
-    @Override
     public boolean isEmpty() {
         return root == null;
     }
 
-    @Override
-    public void destroy() {
-        root = null;
-    }
-
-    public void destroyNodes() {
-        if (isEmpty()) {
-            throw new ExceptionIsEmpty("El árbol ya está vacío.");
-        }
-        root = null;
-    }
-
-    @Override
     public void insert(E data) {
         root = insert(root, data);
     }
 
     private Node<E> insert(Node<E> node, E data) {
-        if (node == null) return new Node<>(data);
+        if (node == null)
+            return new Node<>(data);
         int cmp = data.compareTo(node.data);
-        if (cmp < 0) node.left = insert(node.left, data);
-        else if (cmp > 0) node.right = insert(node.right, data);
-        else throw new ItemDuplicated("Dato duplicado: " + data);
+        if (cmp < 0)
+            node.left = insert(node.left, data);
+        else if (cmp > 0)
+            node.right = insert(node.right, data);
+        else
+            throw new ItemDuplicated("Dato duplicado: " + data);
         return node;
-    }
-
-    @Override
-    public boolean search(E data) {
-        return search(root, data);
-    }
-
-    private boolean search(Node<E> node, E data) {
-        if (node == null) throw new ItemNotFound("Dato no encontrado: " + data);
-        int cmp = data.compareTo(node.data);
-        if (cmp < 0) return search(node.left, data);
-        else if (cmp > 0) return search(node.right, data);
-        else return true;
-    }
-
-    @Override
-    public void delete(E data) {
-        if (isEmpty()) throw new ExceptionIsEmpty("El árbol está vacío.");
-        root = delete(root, data);
-    }
-
-    private Node<E> delete(Node<E> node, E data) {
-        if (node == null) throw new ItemNotFound("Dato no encontrado: " + data);
-        int cmp = data.compareTo(node.data);
-        if (cmp < 0) node.left = delete(node.left, data);
-        else if (cmp > 0) node.right = delete(node.right, data);
-        else {
-            if (node.left == null) return node.right;
-            if (node.right == null) return node.left;
-            Node<E> successor = findMin(node.right);
-            node.data = successor.data;
-            node.right = delete(node.right, successor.data);
-        }
-        return node;
-    }
-
-    private Node<E> findMin(Node<E> node) {
-        while (node.left != null) node = node.left;
-        return node;
-    }
-
-    // InOrder: izquierda, raíz, derecha
-    private void inOrder(Node<E> node, StringBuilder sb) {
-        if (node != null) {
-            inOrder(node.left, sb);
-            sb.append(node.data).append(" ");
-            inOrder(node.right, sb);
-        }
     }
 
     public String toString() {
@@ -98,159 +53,85 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         return sb.toString().trim();
     }
 
-    // PreOrder: raíz, izquierda, derecha
-    private void preOrder(Node<E> node, StringBuilder sb) {
+    private void inOrder(Node<E> node, StringBuilder sb) {
         if (node != null) {
+            inOrder(node.left, sb);
             sb.append(node.data).append(" ");
-            preOrder(node.left, sb);
-            preOrder(node.right, sb);
+            inOrder(node.right, sb);
         }
     }
 
-    public String preOrderString() {
-        StringBuilder sb = new StringBuilder();
-        preOrder(root, sb);
-        return sb.toString().trim();
-    }
-
-    // PostOrder: izquierda, derecha, raíz
-    private void postOrder(Node<E> node, StringBuilder sb) {
-        if (node != null) {
-            postOrder(node.left, sb);
-            postOrder(node.right, sb);
-            sb.append(node.data).append(" ");
-        }
-    }
-
-    public String postOrderString() {
-        StringBuilder sb = new StringBuilder();
-        postOrder(root, sb);
-        return sb.toString().trim();
-    }
-
-    // EJERCICIO 1 - Métodos adicionales
-
-    // a. Contar todos los nodos (hojas y no hojas)
-    public int countAllNodes() {
-        return countAllNodes(root);
-    }
-
-    private int countAllNodes(Node<E> node) {
-        if (node == null) return 0;
-        return 1 + countAllNodes(node.left) + countAllNodes(node.right);
-    }
-
-    // b. Contar solo nodos NO hoja
-    public int countNodes() {
-        return countNodes(root);
-    }
-
-    private int countNodes(Node<E> node) {
-        if (node == null || (node.left == null && node.right == null)) return 0;
-        return 1 + countNodes(node.left) + countNodes(node.right);
-    }
-
-    // c. Altura iterativa del subárbol con raíz x
-    public int height(E x) {
-        Node<E> node = root;
-        while (node != null) {
-            int cmp = x.compareTo(node.data);
-            if (cmp < 0) node = node.left;
-            else if (cmp > 0) node = node.right;
-            else return heightIterative(node);
-        }
-        return -1; // No encontrado
-    }
-
-    private int heightIterative(Node<E> node) {
-        if (node == null) return -1;
-        Queue<Node<E>> queue = new LinkedList<>();
-        queue.add(node);
-        int height = -1;
-
-        while (!queue.isEmpty()) {
-            int size = queue.size();
-            height++;
-            for (int i = 0; i < size; i++) {
-                Node<E> current = queue.poll();
-                if (current.left != null) queue.add(current.left);
-                if (current.right != null) queue.add(current.right);
-            }
-        }
-        return height;
-    }
-
-    // d. Amplitud (anchura) en un nivel específico
-    public int amplitude(int level) {
-        if (root == null || level < 0) return 0;
-
-        Queue<Node<E>> queue = new LinkedList<>();
-        queue.add(root);
-        int currentLevel = 0;
-
-        while (!queue.isEmpty()) {
-            int size = queue.size();
-            if (currentLevel == level) return size;
-
-            for (int i = 0; i < size; i++) {
-                Node<E> node = queue.poll();
-                if (node.left != null) queue.add(node.left);
-                if (node.right != null) queue.add(node.right);
-            }
-            currentLevel++;
-        }
-
-        return 0; // Nivel fuera del rango del árbol
-    }
-    // a. Método areaBST() - iterativo
+    // Ejercicio 2.a - area BST()
     public int areaBST() {
-        if (isEmpty()) return 0;
-        
-        int height = heightIterative(root);
-        int leafCount = countLeavesIterative();
-        
-        return height * leafCount;
-    }
+        if (root == null)
+            return 0;
+        Queue<Node<E>> queue = new LinkedQueue<>();
+        queue.enqueue(root);
 
-    private int countLeavesIterative() {
-        if (isEmpty()) return 0;
-        
-        Queue<Node<E>> queue = new LinkedList<>();
-        queue.add(root);
-        int leafCount = 0;
-        
+        int hojas = 0;
+        int altura = -1;
+
         while (!queue.isEmpty()) {
-            Node<E> current = queue.poll();
-            
-            if (current.left == null && current.right == null) {
-                leafCount++;
-            } else {
-                if (current.left != null) queue.add(current.left);
-                if (current.right != null) queue.add(current.right);
+            int size = getQueueSize(queue);
+            altura++;
+            for (int i = 0; i < size; i++) {
+                Node<E> current = queue.dequeue();
+                if (current.left == null && current.right == null)
+                    hojas++;
+                if (current.left != null)
+                    queue.enqueue(current.left);
+                if (current.right != null)
+                    queue.enqueue(current.right);
             }
         }
-        return leafCount;
+        return hojas * altura;
     }
 
-    // b. Método drawBST()
-    public String drawBST() {
-        StringBuilder sb = new StringBuilder();
-        if (!isEmpty()) {
-            drawBST(root, 0, sb);
+    private int getQueueSize(Queue<Node<E>> queue) {
+        LinkedQueue<Node<E>> tempQueue = (LinkedQueue<Node<E>>) queue;
+        int count = 0;
+        Queue<Node<E>> aux = new LinkedQueue<>();
+        while (!tempQueue.isEmpty()) {
+            Node<E> node = tempQueue.dequeue();
+            aux.enqueue(node);
+            count++;
         }
-        return sb.toString();
+        while (!aux.isEmpty()) {
+            tempQueue.enqueue(aux.dequeue());
+        }
+        return count;
     }
 
-    private void drawBST(Node<E> node, int level, StringBuilder sb) {
-        if (node != null) {
-            drawBST(node.right, level + 1, sb);
-            
-            for (int i = 0; i < level; i++) {
-                sb.append("     ");
+    // Ejercicio 2.b - dibujamos el BST()
+    public void drawBST() {
+        JFrame frame = new JFrame("BST Dibujo");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(800, 600);
+        frame.add(new BSTPanel());
+        frame.setVisible(true);
+    }
+
+    private class BSTPanel extends JPanel {
+        @Override
+        protected void paintComponent(java.awt.Graphics g) {
+            super.paintComponent(g);
+            if (root != null)
+                drawNode(g, root, getWidth() / 2, 50, getWidth() / 4);
+        }
+
+        private void drawNode(java.awt.Graphics g, Node<E> node, int x, int y, int xOffset) {
+            g.drawOval(x - 15, y - 15, 30, 30);
+            g.drawString(node.data.toString(), x - 7, y + 5);
+
+            if (node.left != null) {
+                g.drawLine(x, y, x - xOffset, y + 50);
+                drawNode(g, node.left, x - xOffset, y + 50, xOffset / 2);
             }
-            sb.append(node.data).append("\n");
-            
-            drawBST(node.left, level + 1, sb);
+
+            if (node.right != null) {
+                g.drawLine(x, y, x + xOffset, y + 50);
+                drawNode(g, node.right, x + xOffset, y + 50, xOffset / 2);
+            }
         }
     }
 }
