@@ -1,15 +1,16 @@
-class NodeAVL<E extends Comparable<E>> extends Node<E> {
-    protected int bf; // Balance factor (-1, 0, 1)
-    protected int height;
-    
-    public NodeAVL(E data) {
-        super(data);
-        this.bf = 0;
-        this.height = 1; // Altura inicial de un nodo nuevo es 1
+package Node;
+
+public class Node<E> {
+    public E data;
+    public Node<E> left;
+    public Node<E> right;
+
+    public Node(E data) {
+        this.data = data;
+        this.left = this.right = null;
     }
-    
-    @Override
+
     public String toString() {
-        return super.toString() + "(bf:" + bf + ", h:" + height + ")";
+        return data.toString();
     }
 }
