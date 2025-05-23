@@ -1,5 +1,3 @@
-package Ejercicio_4;
-import exceptions.ItemDuplicated;
 public class TestBFSRecursive {
     public static void main(String[] args) {
         try {
@@ -11,7 +9,8 @@ public class TestBFSRecursive {
             }
 
             System.out.println("Recorrido por amplitud recursivo (BFS):");
-            avl.breadthFirstRecursive(); // Salida: 50 30 70 40 60 80
+            avl.breadthFirstRecursive(); // Debería imprimir: 50 30 70 40 60 80
+
         } catch (ItemDuplicated e) {
             System.err.println("Error: " + e.getMessage());
         }
