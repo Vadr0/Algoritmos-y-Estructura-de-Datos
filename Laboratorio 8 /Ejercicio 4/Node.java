@@ -1,5 +1,3 @@
-package Node;
-
 public class Node<E> {
     public E data;
     public Node<E> left;
