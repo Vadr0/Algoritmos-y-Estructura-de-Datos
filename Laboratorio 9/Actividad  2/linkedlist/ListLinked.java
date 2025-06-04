@@ -1,3 +1,5 @@
+package linkedlist;
+
 /**
  * Node -> Representa a un nodo de la lista enlazada
  * 
