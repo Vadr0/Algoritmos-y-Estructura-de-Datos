@@ -42,6 +42,20 @@ public class ListLinked <T> {
         this.firstNode = firstNode;
     }
 
+    // Nuevo metodo, para obtener el elemento en una posicion especifica de la lista
+    public T get(int index) {
+        int pos = 0;
+        Node<T> currentNode = firstNode;
+        while (currentNode != null) {
+            if (pos == index) {
+                return currentNode.data;
+            }
+            currentNode = currentNode.nextNode;
+            pos++;
+        }
+        return null; // Por si no encuentra dicho indice, retorna null
+    }
+
     public boolean isEmptyList(){
         return firstNode == null;
     }
