@@ -14,8 +14,9 @@ public class Vertex<E> {
         return data;
     }
 
+    @Override
     @SuppressWarnings("unchecked")
-    public boolean equal(Object o){
+    public boolean equals(Object o){
         if (o instanceof Vertex<?>) {
             Vertex<E> v = (Vertex<E>) o;
             return this.data.equals(v.data);

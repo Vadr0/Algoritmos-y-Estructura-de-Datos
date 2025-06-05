@@ -11,13 +11,12 @@ public class GraphLink<E> {
     }
 
     public void insertVertex(E data) {
-        // Usar search para evitar duplicados
         if (listVertex.search(new Vertex<>(data)) != -1) {
-            return; // Ya existe el vertice
+            return;
         }
         listVertex.insertLast(new Vertex<>(data));
     }
-
+    
     public void insertEdge(E verOrigen, E verDestino) {
 
     }

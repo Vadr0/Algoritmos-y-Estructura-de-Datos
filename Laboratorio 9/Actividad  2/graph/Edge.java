@@ -12,7 +12,8 @@ public class Edge<E>{
         this.refDest = refDest;
         this.weight = weight;
     }
-
+    
+    @Override
     @SuppressWarnings("unchecked")
     public boolean equals (Object o) {
         if (o instanceof Edge<?>) {
