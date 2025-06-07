@@ -45,7 +45,7 @@ public class GraphLink<E> {
         if (verOrigen == null || verDestino == null) {
             throw new IllegalArgumentException("Los vertices no pueden ser null");
         }
-        
+
         int posOrigen = listVertex.search(new Vertex<>(verOrigen));
         int posDestino = listVertex.search(new Vertex<>(verDestino));
 
@@ -70,8 +70,23 @@ public class GraphLink<E> {
         insertEdge(verDestino, verOrigen);
     }
 
-    // Crear un nuevo metodo insert edge para cuando se necesite verificar peso
-    // tambien
+    // Para buscar vertices, se busca en la lista de vertices
+    // Si no se encuentra retorna false
+    public boolean searchVertex(E vertex) {
+        return listVertex.search(new Vertex<>(vertex)) != -1;
+    }
+
+    public boolean searchEdge(E v, E z) {
+        int posOrigen = listVertex.search(new Vertex<>(v));
+        int posDestino = listVertex.search(new Vertex<>(z));
+        if (posOrigen == -1 || posDestino == -1) {
+            return false;
+        }
+        Vertex<E> origen = listVertex.get(posOrigen);
+        Vertex<E> destino = listVertex.get(posDestino);
+        return origen.listAdj.search(new Edge<>(destino)) != -1;
+    }
+
     public String toString() {
         return this.listVertex.toString();
     }
