@@ -5,9 +5,13 @@ import linkedlist.ListLinked;
 public class GraphLink<E> {
 
     protected ListLinked<Vertex<E>> listVertex;
+    private boolean esDirigido;
+    private boolean esPonderado;
 
-    public GraphLink() {
+    public GraphLink(boolean esDirigido, boolean esPonderado) {
         listVertex = new ListLinked<Vertex<E>>();
+        this.esDirigido = esDirigido;
+        this.esPonderado = esPonderado;
     }
 
 
@@ -85,7 +89,7 @@ public class GraphLink<E> {
 
 
 
-    
+
  //Metodos para busqueda:
 
     //Buscar vertices:
@@ -104,6 +108,8 @@ public class GraphLink<E> {
         Vertex<E> destino = listVertex.get(posDestino);
         return origen.listAdj.search(new Edge<>(destino)) != -1;
     }
+
+
 
     public String toString() {
         return this.listVertex.toString();
