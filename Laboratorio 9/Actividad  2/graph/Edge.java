@@ -1,7 +1,7 @@
 package graph;
 
 public class Edge<E>{
-    private Vertex<E> refDest;
+    public Vertex<E> refDest;
     private int weight;
 
     public Edge(Vertex<E> refDest){

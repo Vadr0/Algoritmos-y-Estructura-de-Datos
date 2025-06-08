@@ -111,6 +111,40 @@ public class GraphLink<E> {
 
 
 
+
+ // Metodos para eliminar:
+
+    // Eliminar un vertice y sus aristas asociadas:
+    public void removeVertex(E v) {
+        int pos = listVertex.search(new Vertex<>(v));
+        if (pos == -1) return; // No existe el vertice
+
+        Vertex<E> vertexToRemove = listVertex.get(pos);
+
+        //Eliminar todas las aristas adyacentes que se originan en el vertice
+        vertexToRemove.listAdj.destroyList();
+
+        //Eliminar todas las aristas que van hacia el vertice
+        for (int i = 0; i < listVertex.lengthList(); i++){
+            Vertex<E> current = listVertex.get(i);
+                // Eliminar aristas que apunten a vertex to Remove
+            for(int j = 0; j < current.listAdj.lengthList();) {
+                if (current.listAdj.get(j).refDest.equals(vertexToRemove)){
+                    current.listAdj.removeNode(current.listAdj.get(j));
+                } else {
+                    j++;
+                }
+            }
+        }
+
+        //Eliminar el vertice de la lista de vertices
+        listVertex.removeNode(vertexToRemove);
+    }
+
+
+
+
+
     public String toString() {
         return this.listVertex.toString();
     }
