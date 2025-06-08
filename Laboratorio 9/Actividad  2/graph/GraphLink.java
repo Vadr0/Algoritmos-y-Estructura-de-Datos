@@ -168,6 +168,31 @@ public class GraphLink<E> {
     }
 
 
+ //Recorridos del grafo
+    public void dfs(E v) {
+        int pos = listVertex.search(new Vertex<>(v));
+        if (pos == -1){
+            System.out.println("Vertice no encontrado");
+            return;
+        }
+        boolean[] visitado = new boolean[listVertex.lengthList()];
+        dfsUtil(pos,visitado);
+        System.out.println();
+    }
+
+    private void dfsUtil(int pos, boolean[] visitado){
+        visitado[pos] = true;
+        Vertex<E> vertice = listVertex.get(pos);
+        System.out.println(vertice.getData() + " ");
+        for (int i = 0; i < vertice.listAdj.lengthList(); i++){
+            Vertex<E> adyacente = vertice.listAdj.get(i).refDest;
+            int posAdy = listVertex.search(adyacente);
+            if (posAdy != -1 && !visitado[posAdy]) {
+                dfsUtil(posAdy, visitado);
+            }
+        }
+    }
+
 
 
 
