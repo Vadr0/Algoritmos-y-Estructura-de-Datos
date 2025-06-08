@@ -141,6 +141,34 @@ public class GraphLink<E> {
         listVertex.removeNode(vertexToRemove);
     }
 
+    // Eliminar una arista en grafos dirigidos
+    public void removeEdge(E v, E z) {
+        int posOrigen = listVertex.search(new Vertex<>(v));
+        int posDestino = listVertex.search(new Vertex<>(z));
+
+        if (posOrigen == -1 || posDestino == -1){
+            return;
+        }
+
+        Vertex<E> origen = listVertex.get(posOrigen);
+        Vertex<E> destino = listVertex.get(posDestino);
+
+        for (int i = 0; i > origen.listAdj.lengthList(); i++){
+            if (origen.listAdj.get(i).refDest.equals(destino)) {
+                origen.listAdj.removeNode(origen.listAdj.get(i));
+                break;
+            }
+        }
+    }
+
+    // Eliminar una arista en grafos no dirigidos
+    public void removeEdgeUndirected(E v, E z){
+        removeEdge(v, z);
+        removeEdge(z, v);
+    }
+
+
+
 
 
 
