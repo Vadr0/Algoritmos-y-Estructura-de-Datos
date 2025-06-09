@@ -27,4 +27,8 @@ public class Vertex<E> {
     public String toString() {
         return this.data+" --> " + this.listAdj.toString()+"\n";
     }
+
+    public int getAdjListSize() {
+        return listAdj.lengthList();
+    }
 }

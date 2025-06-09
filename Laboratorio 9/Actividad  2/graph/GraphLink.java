@@ -387,4 +387,14 @@ public class GraphLink<E> {
     public String toString() {
         return this.listVertex.toString();
     }
+
+    // Devuelve la cantidad de vértices
+    public int getVertexCount() {
+        return listVertex.lengthList();
+    }
+
+    // Devuelve el vértice en la posición i
+    public Vertex<E> getVertexByIndex(int i) {
+        return listVertex.get(i);
+    }
 }
