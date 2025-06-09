@@ -3,6 +3,7 @@ package graph;
 import java.util.ArrayList;
 import linkedlist.ListLinked;
 import queues.Queue;
+import stacks.Stack;
 
 public class GraphLink<E> {
 
@@ -52,6 +53,10 @@ public class GraphLink<E> {
 
         origen.listAdj.insertLast(new Edge<>(destino));
     }
+
+
+    // insertEdgeWeight(v, z, w): inserta una arista del vértice v a z con peso w.
+    // Cumple con lo que pide la Actividad 2.
 
     //Insertar Aristas Ponderadas en Grafos No Dirigidos:
     public void insertEdge(E verOrigen, E verDestino, int peso) {
@@ -302,9 +307,82 @@ public class GraphLink<E> {
         return path;
     }
 
+ //Ejercicio 2
+    // Determinar la ruta más corta entre el vértice v y z.
+        // Basicamente es la implementacion de bfsPath
+    public ArrayList<E> shortPath(E v, E z) {
+        return bfsPath(v, z);
+    }
+    
+    // Verificar si un grafo es conexo
+    public boolean EsConexo() {
+        if (listVertex.lengthList() == 0) return true; // empty = conexo por definición
 
+        boolean[] visitado = new boolean[listVertex.lengthList()];
+        // Hacemos DFS desde el primer vértice
+        dfsUtil(0, visitado);
 
+        // Si algún vértice no fue visitado, el grafo no es conexo
+        for (boolean v : visitado) {
+            if (!v) return false;
+        }
+        return true;
+    }
 
+    // Dijkstra: retorna un stack con la ruta más corta de un vértice v a otro w
+    public Stack<E> Dijkstra(E v, E w) {
+        int n = listVertex.lengthList();
+        int start = listVertex.search(new Vertex<>(v));
+        int end = listVertex.search(new Vertex<>(w));
+        Stack<E> path = new Stack<>();
+        if (start == -1 || end == -1) return path;
+
+        int[] dist = new int[n];
+        int[] prev = new int[n];
+        boolean[] visited = new boolean[n];
+        for (int i = 0; i < n; i++) {
+            dist[i] = Integer.MAX_VALUE;
+            prev[i] = -1;
+        }
+        dist[start] = 0;
+
+        for (int count = 0; count < n; count++) {
+            // Buscar el vértice no visitado con menor distancia
+            int u = -1;
+            int minDist = Integer.MAX_VALUE;
+            for (int i = 0; i < n; i++) {
+                if (!visited[i] && dist[i] < minDist) {
+                    minDist = dist[i];
+                    u = i;
+                }
+            }
+            if (u == -1) break; // No hay más alcanzables
+            visited[u] = true;
+            Vertex<E> vertice = listVertex.get(u);
+            for (int i = 0; i < vertice.listAdj.lengthList(); i++) {
+                Edge<E> edge = vertice.listAdj.get(i);
+                Vertex<E> adj = edge.refDest;
+                int vPos = listVertex.search(adj);
+                int peso = edge.getWeight();
+                if (peso < 0) peso = 1; // Si no tiene peso, considerar 1
+                if (!visited[vPos] && dist[u] != Integer.MAX_VALUE && dist[u] + peso < dist[vPos]) {
+                    dist[vPos] = dist[u] + peso;
+                    prev[vPos] = u;
+                }
+            }
+        }
+        // Reconstruir el camino
+        if (dist[end] == Integer.MAX_VALUE) return path; // No hay camino
+        for (int at = end; at != -1; at = prev[at]) {
+            path.push(listVertex.get(at).getData());
+        }
+        // El stack tiene el camino de destino a origen, lo invertimos
+        Stack<E> result = new Stack<>();
+        while (!path.isEmpty()) {
+            result.push(path.pop());
+        }
+        return result;
+    }
 
     public String toString() {
         return this.listVertex.toString();

@@ -30,4 +30,8 @@ public class Edge<E>{
             return refDest.getData() + ", ";
         }
     }
+
+    public int getWeight() {
+        return this.weight;
+    }
 }
