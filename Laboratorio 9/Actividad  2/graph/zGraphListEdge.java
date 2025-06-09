@@ -1,7 +1,7 @@
 package graph;
 
 import java.util.ArrayList;
-
+//Actividad 3
 public class zGraphListEdge<V,E> {
     ArrayList<zVertexObj<V,E>> secVertex;
     ArrayList<zEdgeObj<V,E>> secEdge;
