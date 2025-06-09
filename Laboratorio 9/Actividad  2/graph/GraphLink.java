@@ -1,6 +1,8 @@
 package graph;
 
+import java.util.ArrayList;
 import linkedlist.ListLinked;
+import queues.Queue;
 
 public class GraphLink<E> {
 
@@ -168,7 +170,7 @@ public class GraphLink<E> {
     }
 
 
- //Recorridos del grafo
+ //Recorrido de profundidad
     public void dfs(E v) {
         int pos = listVertex.search(new Vertex<>(v));
         if (pos == -1){
@@ -193,6 +195,112 @@ public class GraphLink<E> {
         }
     }
 
+
+
+
+
+ // Ejercicio 1:
+    // Recorrido de anchura
+    public void bfs(E v) {
+        int pos = listVertex.search(new Vertex<>(v));
+        
+        if (pos == -1) {
+            System.out.println("Vertice no encontrado");
+            return;
+        }
+
+        boolean[] visitado = new boolean[listVertex.lengthList()];
+        Queue<Integer> cola = new Queue<>();
+        visitado[pos] = true;
+        cola.enqueue(pos);
+
+        while (!cola.isEmpty()) {
+            
+            int actual = cola.dequeue();
+            
+            Vertex<E> vertice = listVertex.get(actual);
+            
+            System.out.println(vertice.getData() + " ");
+            
+            for (int i = 0; i < vertice.listAdj.lengthList(); i++) {
+                
+                Vertex<E> adyacente = vertice.listAdj.get(i).refDest;
+                
+                int posAdy = listVertex.search(adyacente);
+                
+                if (posAdy != -1 && !visitado[posAdy]) {
+                    visitado[posAdy] = true;
+                    cola.enqueue(posAdy);
+                }
+            }
+        }
+        System.out.println();
+    }
+
+    // Recorrido de anchura entre dos vertices
+    public ArrayList<E> bfsPath(E v, E z) {
+
+        //Lista que guardara el camino final
+        ArrayList<E> path = new ArrayList<>();
+
+        //Indices de vertices
+        int start = listVertex.search(new Vertex<>(v));
+        int end = listVertex.search(new Vertex<>(z));
+
+        if (start == -1 || end == -1) return path;
+
+        // Arreglo para chequear visitados
+        boolean[] visitado = new boolean[listVertex.lengthList()];
+
+        // Arreglo para ver los vertices anteriores y poder reconstruir caminos
+        int[] prev = new int[listVertex.lengthList()];
+
+        for (int i = 0; i < prev.length; i++){
+            prev[i] = -1;
+        } 
+
+        // Cola para el bfs
+        Queue<Integer> cola = new Queue<>();
+
+        visitado[start] = true;
+
+        cola.enqueue(start);
+
+        while (!cola.isEmpty()) {
+
+            int actual = cola.dequeue();
+
+            if (actual == end) break;
+
+            Vertex<E> vertice = listVertex.get(actual);
+
+            for (int i = 0; i < vertice.listAdj.lengthList(); i++) {
+
+                Vertex<E> adyacente = vertice.listAdj.get(i).refDest;
+
+                int posAdy = listVertex.search(adyacente);
+
+                if (posAdy != -1 && !visitado[posAdy]) {
+                    
+                    visitado[posAdy] = true;
+                    
+                    prev[posAdy] = actual;
+                    
+                    cola.enqueue(posAdy);
+                }
+            }
+        }
+
+        // Reconstruir el camino
+        if (!visitado[end]){
+             return path; // No hay camino
+        }
+
+        for (int at = end; at != -1; at = prev[at]) {
+            path.add(0, listVertex.get(at).getData());
+        }
+        return path;
+    }
 
 
 
