@@ -1,29 +1,19 @@
-package Ejercicio2;
+package Ejercici2;
 
-public class VerticeObjeto<T, E> {
-    private T informacion;
-    private int posicion;
+public class Vertice {
+    public String dato;
+    public Vertice siguiente;
+    public Arista adyacente;
+    public boolean visitado;
 
-    public VerticeObjeto(T informacion, int posicion) {
-        this.informacion = informacion;
-        this.posicion = posicion;
+    public Vertice(String dato) {
+        this.dato = dato;
+        this.siguiente = null;
+        this.adyacente = null;
+        this.visitado = false;
     }
+}
 
-    public T obtenerInformacion() {
-        return informacion;
-    }
-
-    public int obtenerPosicion() {
-        return posicion;
-    }
-
-    public void establecerInformacion(T informacion) {
-        this.informacion = informacion;
-    }
-
-    public void establecerPosicion(int posicion) {
-        this.posicion = posicion;
-    }
 
     public String toString() {
         return informacion.toString();
