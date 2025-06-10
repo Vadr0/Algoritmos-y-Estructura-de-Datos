@@ -1,8 +1,8 @@
 package Ejercicio2;
 
 public class VerticeObjeto<T, E> {
-    protected T informacion;
-    protected int posicion;
+    private T informacion;
+    private int posicion;
 
     public VerticeObjeto(T informacion, int posicion) {
         this.informacion = informacion;
@@ -25,7 +25,6 @@ public class VerticeObjeto<T, E> {
         this.posicion = posicion;
     }
 
-    @Override
     public String toString() {
         return informacion.toString();
     }
