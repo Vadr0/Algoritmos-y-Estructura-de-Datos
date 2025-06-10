@@ -56,7 +56,7 @@ public class GraphLink<E> {
 
 
     // insertEdgeWeight(v, z, w): inserta una arista del vértice v a z con peso w.
-    // Cumple con lo que pide la Actividad 2.
+    // Cumple con lo que pide el Ejercicio 2.
 
     //Insertar Aristas Ponderadas en Grafos No Dirigidos:
     public void insertEdge(E verOrigen, E verDestino, int peso) {
