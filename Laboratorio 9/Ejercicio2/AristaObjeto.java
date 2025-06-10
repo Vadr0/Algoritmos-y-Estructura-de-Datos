@@ -1,15 +1,15 @@
 package Ejercicio2;
 
 public class AristaObjeto<T, E> {
-    protected E informacion;
-    protected VerticeObjeto<T, E> vertice1;
-    protected VerticeObjeto<T, E> vertice2;
-    protected int posicion;
+    private E informacion;
+    private VerticeObjeto<T, E> vertice1;
+    private VerticeObjeto<T, E> vertice2;
+    private int posicion;
 
-    public AristaObjeto(VerticeObjeto<T, E> vertice1, VerticeObjeto<T, E> vertice2, E informacion, int posicion) {
-        this.vertice1 = vertice1;
-        this.vertice2 = vertice2;
-        this.informacion = informacion;
+    public AristaObjeto(VerticeObjeto<T, E> v1, VerticeObjeto<T, E> v2, E info, int posicion) {
+        this.vertice1 = v1;
+        this.vertice2 = v2;
+        this.informacion = info;
         this.posicion = posicion;
     }
 
@@ -29,8 +29,8 @@ public class AristaObjeto<T, E> {
         return posicion;
     }
 
-    @Override
     public String toString() {
         return "(" + vertice1 + " - " + vertice2 + ", peso: " + informacion + ")";
     }
 }
+
