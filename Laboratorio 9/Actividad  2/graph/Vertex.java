@@ -10,6 +10,10 @@ public class Vertex<E> {
         listAdj = new ListLinked<Edge<E>>();
     }
 
+    public ListLinked<Edge<E>> getListAdj() {
+        return listAdj;
+    }
+
     public E getData(){
         return data;
     }
