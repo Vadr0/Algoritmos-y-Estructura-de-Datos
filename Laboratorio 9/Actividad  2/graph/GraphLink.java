@@ -174,6 +174,46 @@ public class GraphLink<E> {
         removeEdge(z, v);
     }
 
+    // Eliminar un vértice y sus aristas asociadas en grafos dirigidos
+    public void removeVertexDirected(E v) {
+        int pos = listVertex.search(new Vertex<>(v));
+        if (pos == -1) return; // No existe el vértice
+
+        Vertex<E> vertexToRemove = listVertex.get(pos);
+
+        // Eliminar todas las aristas adyacentes que se originan en el vértice
+        vertexToRemove.listAdj.destroyList();
+
+        // Eliminar el vértice de la lista de vértices
+        listVertex.removeNode(vertexToRemove);
+    }
+
+    // Eliminar un vértice y sus aristas asociadas en grafos no dirigidos
+    public void removeVertexUndirected(E v) {
+        int pos = listVertex.search(new Vertex<>(v));
+        if (pos == -1) return; // No existe el vértice
+
+        Vertex<E> vertexToRemove = listVertex.get(pos);
+
+        // Eliminar todas las aristas adyacentes que se originan en el vértice
+        vertexToRemove.listAdj.destroyList();
+
+        // Eliminar todas las aristas que van hacia el vértice
+        for (int i = 0; i < listVertex.lengthList(); i++) {
+            Vertex<E> current = listVertex.get(i);
+            for (int j = 0; j < current.listAdj.lengthList();) {
+                if (current.listAdj.get(j).refDest.equals(vertexToRemove)) {
+                    current.listAdj.removeNode(current.listAdj.get(j));
+                } else {
+                    j++;
+                }
+            }
+        }
+
+        // Eliminar el vértice de la lista de vértices
+        listVertex.removeNode(vertexToRemove);
+    }
+
 
  //Recorrido de profundidad
     public void dfs(E v) {
@@ -317,7 +357,7 @@ public class GraphLink<E> {
     }
 
  //Ejercicio 2
-    // Determinar la ruta más corta entre el vértice v y z.
+    // Determinar la ruta más corta entre el vértice v and z.
         // Basicamente es la implementacion de bfsPath
     public ArrayList<E> shortPath(E v, E z) {
         return bfsPath(v, z);
