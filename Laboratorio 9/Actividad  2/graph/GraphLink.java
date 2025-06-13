@@ -188,12 +188,19 @@ public class GraphLink<E> {
     }
 
     private void dfsUtil(int pos, boolean[] visitado){
+
         visitado[pos] = true;
+
         Vertex<E> vertice = listVertex.get(pos);
+
         System.out.println(vertice.getData() + " ");
+
         for (int i = 0; i < vertice.listAdj.lengthList(); i++){
+
             Vertex<E> adyacente = vertice.listAdj.get(i).refDest;
+
             int posAdy = listVertex.search(adyacente);
+
             if (posAdy != -1 && !visitado[posAdy]) {
                 dfsUtil(posAdy, visitado);
             }
@@ -216,7 +223,9 @@ public class GraphLink<E> {
 
         boolean[] visitado = new boolean[listVertex.lengthList()];
         Queue<Integer> cola = new Queue<>();
+
         visitado[pos] = true;
+
         cola.enqueue(pos);
 
         while (!cola.isEmpty()) {
@@ -332,8 +341,10 @@ public class GraphLink<E> {
     // Dijkstra: retorna un stack con la ruta más corta de un vértice v a otro w
     public Stack<E> Dijkstra(E v, E w) {
         int n = listVertex.lengthList();
+
         int start = listVertex.search(new Vertex<>(v));
         int end = listVertex.search(new Vertex<>(w));
+        
         Stack<E> path = new Stack<>();
         if (start == -1 || end == -1) return path;
 

@@ -1,7 +1,7 @@
 package graph;
 
 import java.util.ArrayList;
-//Actividad 3
+//Ejercicio 3
 public class zGraphListEdge<V,E> {
     ArrayList<zVertexObj<V,E>> secVertex;
     ArrayList<zEdgeObj<V,E>> secEdge;
@@ -105,5 +105,51 @@ public class zGraphListEdge<V,E> {
             }
         }
         System.out.println();
+    }
+
+    // Elimina el vértice 'v' y todas sus aristas asociadas
+    public void removeVertex(V v) {
+        zVertexObj<V,E> vertToRemove = null;
+        for (zVertexObj<V,E> vert : secVertex) {
+            if (vert.getInfo().equals(v)) {
+                vertToRemove = vert;
+                break;
+            }
+        }
+        if (vertToRemove == null) return; // Vértice no encontrado
+
+        // Eliminar todas las aristas asociadas al vértice
+        final zVertexObj<V,E> finalVertToRemove = vertToRemove;
+        secEdge.removeIf(edge -> edge.endVertex1 == finalVertToRemove || edge.endVertex2 == finalVertToRemove);
+
+        // Eliminar el vértice
+        secVertex.remove(vertToRemove);
+
+        // Actualizar posiciones de los vértices restantes
+        for (int i = 0; i < secVertex.size(); i++) {
+            secVertex.get(i).position = i;
+        }
+    }
+
+    // Elimina la arista entre los vértices 'v' y 'z'
+    public void removeEdge(V v, V z) {
+        zVertexObj<V,E> vert1 = null, vert2 = null;
+        for (zVertexObj<V,E> vert : secVertex) {
+            if (vert.getInfo().equals(v)) vert1 = vert;
+            if (vert.getInfo().equals(z)) vert2 = vert;
+        }
+        if (vert1 == null || vert2 == null) return; // Algún vértice no existe
+
+        final zVertexObj<V,E> finalVert1 = vert1;
+        final zVertexObj<V,E> finalVert2 = vert2;
+
+        // Buscar y eliminar la arista
+        secEdge.removeIf(edge -> (edge.endVertex1 == finalVert1 && edge.endVertex2 == finalVert2) ||
+                                 (edge.endVertex1 == finalVert2 && edge.endVertex2 == finalVert1));
+
+        // Actualizar posiciones de las aristas restantes
+        for (int i = 0; i < secEdge.size(); i++) {
+            secEdge.get(i).position = i;
+        }
     }
 }
