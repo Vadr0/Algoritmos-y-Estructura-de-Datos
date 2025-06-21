@@ -18,5 +18,15 @@ public class Main {
         System.out.println("¿Está 52 en el árbol?: " + btree.search(52));
         // Puedes probar con otros valores también
         System.out.println("¿Está 100 en el árbol?: " + btree.search(100));
+
+        // Eliminar una clave del árbol
+        System.out.println("\nEliminando la clave 52 del árbol...");
+        btree.remove(52);
+        System.out.println(btree);
+
+        // Puedes probar con otras eliminaciones
+        System.out.println("Eliminando la clave 28 del árbol...");
+        btree.remove(28);
+        System.out.println(btree);
     }
 }

@@ -12,11 +12,15 @@ public class BNode<E extends Comparable<E>> {
     // instancia para el id del nodo
     private int idNode;
 
+    // Nuevo: referencia al padre
+    protected BNode<E> parent;
+
     public BNode (int n) {
         this.keys = new ArrayList<E>(n - 1);
         this.childs = new ArrayList<BNode<E>>(n);
         this.count = 0;
         this.idNode = ++nodeCounter;
+        this.parent = null;
         for (int i = 0; i < n - 1; i++){
             this.keys.add(null);
         }
