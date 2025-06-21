@@ -103,6 +103,27 @@ public class BTree<E extends Comparable<E>> {
         return false;
     }
 
+    //ejercicio 1
+    public boolean search(E cl) {
+        return searchRecursive(this.root, cl);
+    }
+
+    private boolean searchRecursive(BNode<E> current, E cl) {
+        if (current == null) return false;
+        int i = 0;
+        while (i < current.count && cl.compareTo(current.keys.get(i)) > 0) {
+            i++;
+        }
+        if (i < current.count && cl.compareTo(current.keys.get(i)) == 0) {
+            System.out.println(cl + " se encuentra en el nodo " + current.getIdNode() + " en la posición " + i);
+            return true;
+        } else if (current.childs.get(i) != null) {
+            return searchRecursive(current.childs.get(i), cl);
+        } else {
+            return false;
+        }
+    }
+
     @Override
     public String toString() {
         String s = "";

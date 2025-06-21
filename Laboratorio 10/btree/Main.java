@@ -13,5 +13,10 @@ public class Main {
 
 
         System.out.println(btree);
+
+        // Buscar y mostrar si existe la clave 52
+        System.out.println("¿Está 52 en el árbol?: " + btree.search(52));
+        // Puedes probar con otros valores también
+        System.out.println("¿Está 100 en el árbol?: " + btree.search(100));
     }
 }
