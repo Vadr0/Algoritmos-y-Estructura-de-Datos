@@ -51,6 +51,10 @@ public class BNode<E extends Comparable<E>> {
         }
     }
     
+    public int getCount() {
+        return count;
+    }
+
     @Override
     public String toString() {
         String result = "[";
