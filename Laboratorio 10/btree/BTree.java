@@ -102,4 +102,51 @@ public class BTree<E extends Comparable<E>> {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        String s = "";
+        if (isEmpty())
+            s += "BTree is empty...";
+        else
+            s = writeTree(this.root);
+        return s;
+    }
+
+
+    private String writeTree(BNode<E> current) {
+        if (current == null) return "";
+        StringBuilder sb = new StringBuilder();
+        // IdNodo
+        sb.append("Id.Nodo: ").append(current.getIdNode()).append("\t");
+        // Claves Nodo
+        sb.append("Claves Nodo: (");
+        for (int i = 0; i < current.count; i++) {
+            sb.append(current.keys.get(i));
+            if (i < current.count - 1) sb.append(", ");
+        }
+        sb.append(")\t");
+        
+        sb.append("Id.Padre: --\t");
+
+        sb.append("Id.Hijos: [");
+        boolean hasChild = false;
+        for (int i = 0; i <= current.count; i++) {
+            BNode<E> child = current.childs.get(i);
+            if (child != null && !child.nodeEmpty()) {
+                if (hasChild) sb.append(", ");
+                sb.append(child.getIdNode());
+                hasChild = true;
+            }
+        }
+        sb.append("]\n");
+        // Recursivo para hijos
+        for (int i = 0; i <= current.count; i++) {
+            BNode<E> child = current.childs.get(i);
+            if (child != null && !child.nodeEmpty()) {
+                sb.append(writeTree(child));
+            }
+        }
+        return sb.toString();
+    }
 }

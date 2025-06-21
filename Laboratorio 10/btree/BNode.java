@@ -13,12 +13,14 @@ public class BNode<E extends Comparable<E>> {
     private int idNode;
 
     public BNode (int n) {
-        this.keys = new ArrayList<E>(n);
+        this.keys = new ArrayList<E>(n - 1);
         this.childs = new ArrayList<BNode<E>>(n);
         this.count = 0;
         this.idNode = ++nodeCounter;
-        for (int i = 0; i < n;i++){
+        for (int i = 0; i < n - 1; i++){
             this.keys.add(null);
+        }
+        for (int i = 0; i < n; i++){
             this.childs.add(null);
         }
     }
