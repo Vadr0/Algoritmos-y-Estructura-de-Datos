@@ -7,10 +7,16 @@ public class BNode<E extends Comparable<E>> {
     protected ArrayList<BNode<E>> childs;
     protected int count;
 
+    // contador global de nodos
+    private static int nodeCounter = 0;
+    // instancia para el id del nodo
+    private int idNode;
+
     public BNode (int n) {
         this.keys = new ArrayList<E>(n);
         this.childs = new ArrayList<BNode<E>>(n);
         this.count = 0;
+        this.idNode = ++nodeCounter;
         for (int i = 0; i < n;i++){
             this.keys.add(null);
             this.childs.add(null);
@@ -54,10 +60,14 @@ public class BNode<E extends Comparable<E>> {
     public int getCount() {
         return count;
     }
+    
+    public int getIdNode() {
+        return idNode;
+    }
 
     @Override
     public String toString() {
-        String result = "[";
+        String result = "(id=" + idNode + ") [";
         for (int i = 0; i < count; i++) {
             result += keys.get(i);
             if (i < count - 1) result += ", ";
