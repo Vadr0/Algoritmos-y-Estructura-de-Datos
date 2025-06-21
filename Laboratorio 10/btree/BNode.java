@@ -16,4 +16,19 @@ public class BNode<E> {
             this.childs.add(null);
         }
     }
+    
+    public boolean nodeFull(){
+        // lleno si count es tamaño de claves
+        return count == keys.size();
+    }
+    
+    public boolean nodeEmpty() {
+        // vacio si count es 0
+        return count == 0;
+    }
+
+    
+
+
+
 }
