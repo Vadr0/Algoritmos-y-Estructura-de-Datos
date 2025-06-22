@@ -310,4 +310,88 @@ public class BTree<E extends Comparable<E>> {
         parent.childs.set(parent.count, null);
         parent.count--;
     }
+
+    // ejercicio 3
+    public static <E extends Comparable<E>> BTree<E> building_Btree(String filename, java.util.function.Function<String, E> parseKey) throws Exception {
+        java.util.List<String> lines = java.nio.file.Files.readAllLines(java.nio.file.Paths.get(filename));
+        if (lines.isEmpty()) throw new Exception("Archivo vacío");
+        int orden = Integer.parseInt(lines.get(0).trim());
+        BTree<E> tree = new BTree<>(orden);
+        java.util.Map<Integer, BNode<E>> idToNode = new java.util.HashMap<>();
+        java.util.Map<Integer, Integer> idToLevel = new java.util.HashMap<>();
+        java.util.Map<Integer, java.util.List<Integer>> levelToIds = new java.util.HashMap<>();
+        // Crear nodos y asignar claves
+        for (int i = 1; i < lines.size(); i++) {
+            String[] parts = lines.get(i).split(",");
+            int nivel = Integer.parseInt(parts[0].trim());
+            int idNodo = Integer.parseInt(parts[1].trim());
+            BNode<E> node = new BNode<>(orden);
+            node.parent = null;
+            node.count = parts.length - 2;
+            for (int j = 2; j < parts.length; j++) {
+                node.keys.set(j - 2, parseKey.apply(parts[j].trim()));
+            }
+            idToNode.put(idNodo, node);
+            idToLevel.put(idNodo, nivel);
+            levelToIds.computeIfAbsent(nivel, k -> new java.util.ArrayList<>()).add(idNodo);
+        }
+        // Asignar hijos y padres
+        for (int nivel = 0; levelToIds.containsKey(nivel); nivel++) {
+            for (int idPadre : levelToIds.get(nivel)) {
+                BNode<E> padre = idToNode.get(idPadre);
+                int hijoIdx = 0;
+                for (int nivelHijo = nivel + 1; levelToIds.containsKey(nivelHijo); nivelHijo++) {
+                    for (int idHijo : levelToIds.get(nivelHijo)) {
+                        BNode<E> hijo = idToNode.get(idHijo);
+                        if (hijo.parent == null) {
+                            E min = hijo.keys.get(0);
+                            E max = hijo.keys.get(hijo.count - 1);
+                            E left = (hijoIdx == 0) ? null : padre.keys.get(hijoIdx - 1);
+                            E right = (hijoIdx < padre.count) ? padre.keys.get(hijoIdx) : null;
+                            boolean inRange = (left == null || min.compareTo(left) > 0) && (right == null || max.compareTo(right) < 0);
+                            // Solo asignar si hay espacio para más hijos
+                            if (inRange && hijoIdx < padre.childs.size() && hijoIdx <= padre.count) {
+                                padre.childs.set(hijoIdx, hijo);
+                                hijo.parent = padre;
+                                hijoIdx++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        // Buscar raíz (nivel 0)
+        BNode<E> root = null;
+        if (levelToIds.containsKey(0) && !levelToIds.get(0).isEmpty()) {
+            root = idToNode.get(levelToIds.get(0).get(0));
+        }
+        tree.root = root;
+        // Verificar propiedades de BTree
+        if (!tree.verifyBTreeProperties()) {
+            throw new Exception("ItemNoFound: El árbol no cumple las propiedades de BTree");
+        }
+        return tree;
+    }
+
+    // ejercicio 3
+    private boolean verifyBTreeProperties() {
+        if (root == null) return true;
+        int min = (orden - 1) / 2;
+        java.util.Queue<BNode<E>> queue = new java.util.LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            BNode<E> node = queue.poll();
+            // Raíz puede tener menos claves
+            if (node != root && node.count < min) return false;
+            if (node.count > orden - 1) return false;
+            for (int i = 0; i <= node.count; i++) {
+                BNode<E> child = node.childs.get(i);
+                if (child != null) {
+                    if (child.parent != node) return false;
+                    queue.add(child);
+                }
+            }
+        }
+        return true;
+    }
 }
