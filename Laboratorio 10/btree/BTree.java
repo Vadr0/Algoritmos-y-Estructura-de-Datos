@@ -394,4 +394,25 @@ public class BTree<E extends Comparable<E>> {
         }
         return true;
     }
+
+    // Buscar nombre de estudiante por código
+    public String buscarNombre(int codigo) {
+        return buscarNombreRecursivo(root, codigo);
+    }
+
+    private String buscarNombreRecursivo(BNode<E> current, int codigo) {
+        if (current == null) return "No encontrado";
+        for (int i = 0; i < current.count; i++) {
+            E key = current.keys.get(i);
+            if (key instanceof RegistroEstudiante) {
+                RegistroEstudiante reg = (RegistroEstudiante) key;
+                if (reg.getCodigo() == codigo) {
+                    return reg.getNombre();
+                } else if (codigo < reg.getCodigo()) {
+                    return buscarNombreRecursivo(current.childs.get(i), codigo);
+                }
+            }
+        }
+        return buscarNombreRecursivo(current.childs.get(current.count), codigo);
+    }
 }
