@@ -46,6 +46,7 @@ public class HashC<E extends Comparable<E>> {
             if (table[pos].isAvailable == 1 && table[pos].register.getKey() == key) {
                 return pos;
             }
+            pos = (pos + 1) % size;
         } while (pos != start || table[pos].isAvailable != 0);
         return -1;
     }
